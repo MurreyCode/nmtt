@@ -1,0 +1,27 @@
+{
+  "lastfm":
+  {
+    "url": "http://ws.audioscrobbler.com/2.0/",
+    "methods":
+    {
+      "track":
+      {
+        "call_method": "GET",
+        "method":  "track.getinfo",
+        "artist":  "",
+        "track":  "",
+        "api_key": "",
+        "format": "json"
+      },
+      "album":
+      {
+        "call_method": "GET",
+        "method":  "album.getinfo",
+        "artist":  "",
+        "album":  "",
+        "api_key": "",
+        "format": "json"
+      }
+    }
+  }
+}

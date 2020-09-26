@@ -1,8 +1,10 @@
+from glob import glob
+from os.path import join, dirname
+from dotenv import load_dotenv
 from mutagen.mp3 import MP3
 from mutagen.easyid3 import EasyID3
-import mutagen.id3
-from mutagen.id3 import ID3, TIT2, TIT3, TALB, TPE1, TRCK, TYER
-import glob
+
+from src.enrich_meta import enrich_meta
 
 
 def get_artist_track(path):
@@ -28,7 +30,10 @@ def save_meta(path, meta):
 
 if __name__ == '__main__':
 
-    mp3_files = glob.glob('/Users/pablo/Music/Pending/*.mp3')
+    dotenv_path = join(dirname(__file__), 'configs/.env')
+    load_dotenv(dotenv_path)
+
+    mp3_files = glob('/Users/pablo/Music/Pending/*.mp3')
     track_path = mp3_files[0]
     artist_name, track_name = get_artist_track(track_path)
 
@@ -43,5 +48,7 @@ if __name__ == '__main__':
         'arranger': [remixer]
     }
 
+    metadata = enrich_meta(metadata)
     save_meta(track_path, metadata)
 
+    # TODO: Move enriched files from Pending folder to Collection folder
